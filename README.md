@@ -19,6 +19,12 @@ Install dependencies:
 npm install
 ```
 
+Set the Contract ID on Config/constants.ts
+
+```
+CONTRACT_ID = "Enter your contract ID here";
+```
+
 Start the development server:
 
 ```
