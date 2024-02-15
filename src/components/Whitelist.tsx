@@ -16,6 +16,7 @@ import whitelistAccount from "../Services/whitelistAccount";
 import getTxStatus from "../Services/getTxStatus";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { errorTypes } from "../Services/utils";
 
 interface WhitelistProps {
   connector: HWBridgeConnector;
@@ -37,7 +38,24 @@ const Whitelist: React.FC<WhitelistProps> = ({ connector }) => {
     setLoading(true);
 
     const txid = await whitelistAccount(account, signer as Signer);
-    if (txid) {
+
+    if (txid === errorTypes.MissingSignerError) {
+      setLoading(false);
+      toast.warning("Please connect a wallet", {
+        autoClose: 3000,
+        closeOnClick: true,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else if (txid === errorTypes.AlreadyWhitelisted) {
+      setLoading(false);
+      toast.warning("Account is already whitelisted", {
+        autoClose: 3000,
+        closeOnClick: true,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else {
       setTxID(txid);
 
       // After 7 seconds, fetch the transaction status
@@ -53,14 +71,6 @@ const Whitelist: React.FC<WhitelistProps> = ({ connector }) => {
           setLoading(false);
         }
       }, 7000);
-    } else {
-      setLoading(false);
-      toast.warning("Account is already whitelisted", {
-        autoClose: 3000,
-        closeOnClick: true,
-        theme: "light",
-        transition: Bounce,
-      });
     }
   };
 

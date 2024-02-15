@@ -33,3 +33,24 @@ export const getFormattedTxId = (txId: string): string => {
 export const hexToString = (hex: string): string => {
   return Buffer.from(hex.slice(2), "hex").toString("ascii");
 };
+
+// Custom error types
+export class MissingSignerError extends Error {
+  constructor(message: string | undefined) {
+    super(message);
+    this.name = "MissingSignerError";
+  }
+}
+
+export class NullTxIDError extends Error {
+  constructor(message: string | undefined) {
+    super(message);
+    this.name = "NullTxIDError";
+  }
+}
+
+export const errorTypes = {
+  MissingSignerError: "MissingSignerError",
+  NullTxIDError: "NullTxIDError",
+  AlreadyWhitelisted: "Account is already whitelisted",
+};

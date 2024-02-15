@@ -5,16 +5,21 @@ import {
 } from "@hashgraph/sdk";
 import { CONTRACT_ID } from "../Config/constants";
 import checkWhitelist from "./checkWhitelist";
+import { errorTypes } from "./utils";
 
 const whitelistAccount = async (
   account: string,
   signer: Signer
 ): Promise<string> => {
   try {
+    if (!signer) {
+      return errorTypes.MissingSignerError;
+    }
+
     // Check if the account is already whitelisted
     const isWhitelisted = await checkWhitelist(account);
     if (isWhitelisted) {
-      return "";
+      return errorTypes.AlreadyWhitelisted;
     }
 
     console.log(`Whitelisting account: ${account}`);

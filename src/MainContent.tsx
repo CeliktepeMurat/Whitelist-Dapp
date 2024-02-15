@@ -4,7 +4,8 @@ import CheckWhitelist from "./components/CheckWhitelist";
 import ConnectWallet from "./components/ConnectWallet";
 import Message from "./components/Message";
 import { HWBridgeConnector } from "@buidlerlabs/hashgraph-react-wallets";
-import { Grid, Box, Tab, Tabs, Container, CssBaseline } from "@mui/material";
+import { Box, Tab, Tabs, Container, CssBaseline } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 
 interface Props {
   connector: HWBridgeConnector;

@@ -1,4 +1,4 @@
-export const CONTRACT_ID = "Enter the Contract ID here";
+export const CONTRACT_ID = "0.0.3536397";
 
 export const METADATA = {
   description: "Whitelist Management",
